@@ -2,11 +2,11 @@
 MCP server name: `neural-vault-core`.
 
 [NAMESPACE]
-Pin one stable namespace per session: `namespace="project:<repo-root-identity>"`.
+Pin one stable namespace per session: `namespace="project:<repo-root-identity>"` from git root, not current subfolder.
 Pass `namespace` to every namespace-aware tool. Exception: `get_stats`.
 
 [RESUME]
-`/nvc-session-start`: call `get_context(namespace, limit=10, keys_only=True)`, never `list_all_memories`; reply `NVC loaded. [brief summary]. Next?`
+`/nvc:init`: call `get_context(namespace, limit=10, keys_only=True)`, never `list_all_memories`; reply `NVC loaded. [brief summary]. Next?`
 
 [READ]
 1. `search_memories(query, namespace, keys_only=True)`
@@ -24,7 +24,7 @@ Pass `namespace` to every namespace-aware tool. Exception: `get_stats`.
 - Append `*(Stored to NVC)*` only when something meaningful was saved.
 
 [STATE]
-`/nvc-session-end`: overwrite `_state` with progress + next steps.
+`/nvc:end`: overwrite `_state` with progress + next steps.
 `_state` = 3-5 bullets, <500 chars, no code blocks/logs/stack traces.
 Reply `Session saved.`
 

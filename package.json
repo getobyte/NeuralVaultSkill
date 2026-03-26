@@ -1,0 +1,14 @@
+{
+  "name": "@getobyte/nvc-skill",
+  "version": "1.0.0",
+  "description": "Safe-mini NeuralVaultCore skill for Claude Code",
+  "bin": {
+    "nvc-skill": "./bin/install.js"
+  },
+  "scripts": {
+    "install-skill": "node bin/install.js --global"
+  },
+  "keywords": ["claude-code", "mcp", "neuralvault", "skill"],
+  "author": "getobyte",
+  "license": "MIT"
+}

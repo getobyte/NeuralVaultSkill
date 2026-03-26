@@ -1,53 +1,30 @@
-# NeuralVaultSkill (Safe-Mini)
+# ⚡ NeuralVaultSkill *(Safe-Mini)*
 
 > Canonical safe-mini prompt for [NeuralVaultCore](https://github.com/getobyte/NeuralVaultCore).
 
-NeuralVaultSkill is a compact system prompt for agents that use NeuralVaultCore as an MCP memory server. This repository ships one primary prompt only: [SKILL.md](./SKILL.md).
+NeuralVaultSkill is a compact system prompt for agents that use NeuralVaultCore as an MCP memory server. This repository ships one primary prompt only: `SKILL.md`.
 
-The prompt is optimized for low-token memory workflows, but it does not trade away operational safety. It enforces namespace discipline, concise `_state`, stable memory keys, and explicit secret redaction.
+The prompt is optimized for **low-token memory workflows**, but it does not trade away operational safety. It enforces namespace discipline, concise `_state`, stable memory keys, and explicit secret redaction.
 
-The MCP server name exposed in clients is `neural-vault-core`.
+> The MCP server name exposed in clients is `neural-vault-core`.
 
-## Measured Size
+![Tokens](https://img.shields.io/badge/Tokens-~392-0D1117?style=flat-square&logo=anthropic&logoColor=4488FF)
+![License](https://img.shields.io/badge/License-MIT-0D1117?style=flat-square&logo=opensourceinitiative&logoColor=4CAF50)
+![Ecosystem](https://img.shields.io/badge/Ecosystem-NeuralVault-0D1117?style=flat-square&logo=anthropic&logoColor=9F7AEA)
 
-Current [SKILL.md](./SKILL.md) size:
+---
 
-- **1,534 chars**
-- **186 words**
-- **~383 tokens** using NeuralVaultCore's rough estimator: `chars // 4`
+## 🚀 Installation
 
-## What It Enforces
+```bash
+# Global — available in every workspace (recommended)
+npx github:getobyte/NeuralVaultSkill --global
 
-- **Stable namespace:** use `namespace="project:<repo-root-identity>"` on every namespace-aware tool; `get_stats` is the only exception.
-- **Cheap resume:** use `get_context(...)` for session start; do not use `list_all_memories` for resume.
-- **Low-token reads:** search with `search_memories(..., keys_only=True)`, summarize with `retrieve_memory(..., view="head_tail", max_chars=1000)`, use `view="full"` only when needed.
-- **Cheap browsing:** `list_all_memories` must explicitly pass `keys_only=True`.
-- **Clean writes:** store only important decisions and always provide concise `title` and useful `tags`.
-- **Safe memory:** never store `.env`, API keys, tokens, passwords, cookies, bearer headers, or raw secret config values.
-- **Stable keys:** update existing topic memories instead of creating duplicates.
-- **Durable auto-saves:** autonomous saves should capture only confirmed decisions, bugfixes, env facts, or next-step checkpoints.
-- **Short `_state`:** keep it to 3-5 bullets under 500 chars, with no code blocks, logs, or stack traces.
-- **Version recovery only:** `store_memory` already auto-versions; `get_versions` and `restore_version` are for recovery/conflict review.
-
-## Compatible NeuralVaultCore Tools
-
-The prompt is aligned with the actual NeuralVaultCore MCP tools:
-
-- `store_memory`
-- `retrieve_memory`
-- `search_memories`
-- `list_all_memories`
-- `get_context`
-- `delete_memory`
-- `get_versions`
-- `restore_version`
-- `get_stats`
-
-## Installation
+# Local — current project only
+npx github:getobyte/NeuralVaultSkill --local
+```
 
 ### Cursor / VS Code
-
-Run this in your project root:
 
 ```bash
 curl -sL https://raw.githubusercontent.com/getobyte/NeuralVaultSkill/main/SKILL.md > .cursorrules
@@ -55,14 +32,52 @@ curl -sL https://raw.githubusercontent.com/getobyte/NeuralVaultSkill/main/SKILL.
 
 ### Claude Code / Ollama / Custom UIs
 
-1. Open [SKILL.md](./SKILL.md).
-2. Copy the full prompt.
-3. Paste it into your agent's system prompt or custom instructions.
+1. Open `SKILL.md` in the repository.
+2. Copy the full content.
+3. Paste it into your agent's **System Prompt** or **Custom Instructions**.
 
-## Usage
+---
 
-1. Type `/nvc-session-start` to load project context with `get_context`.
-2. Work normally; meaningful autonomous saves append `*(Stored to NVC)*`.
-3. Type `/nvc-session-end` to save a short `_state` checkpoint.
+## 🛠️ Usage
 
-Built for NeuralVaultCore v1.0 | Created by [getobyte](https://github.com/getobyte)
+```
+/nvc:init  →  loads project context via get_context()
+/nvc:end   →  saves a short _state checkpoint
+```
+
+Work normally between commands — meaningful saves happen autonomously in the background *(appended as `Stored to NVC`)*.
+
+---
+
+## 🧠 What It Enforces
+
+| Rule | Details |
+|------|---------|
+| **Stable namespace** | Always use `namespace="project:<repo-root-identity>"` on every call |
+| **Cheap resume** | Use `get_context()` at session start — never `list_all_memories` |
+| **Low-token reads** | Search with `keys_only=True`, summarize with `view="head_tail"` |
+| **Safe memory** | Never store `.env`, API keys, tokens, or raw secrets |
+| **Stable keys** | Update existing topic memories instead of creating duplicates |
+| **Short `_state`** | Keep it to 3–5 bullets, under 500 chars |
+| **Clean writes** | Store only confirmed decisions, bugfixes, and env facts |
+
+---
+
+## 🌐 NeuralVault Ecosystem
+
+| Component | Role |
+|-----------|------|
+| 🧠 [**NeuralVaultCore**](https://github.com/getobyte/NeuralVaultCore) | MCP memory server — the brain |
+| ⚡ **NeuralVaultSkill** *(you are here)* | Session memory automation — `/nvc:init` + `/nvc:end` |
+| 🧹 [**NeuralVaultArchivist**](https://github.com/getobyte/NeuralVaultArchivist) | Memory consolidation — on-demand cleanup |
+| 🛠️ [**NeuralSkillBuilder**](https://github.com/getobyte/NeuralSkillBuilder) | Skill builder — design, scaffold, audit |
+| 🔄 [**NeuralVaultFlow**](https://github.com/getobyte/NeuralVaultFlow) | Dev workflow — brainstorm to deploy |
+
+---
+
+<div align="center">
+
+**NeuralVaultSkill** — Cyber-Draco Legacy  
+Built by [getobyte](https://github.com/getobyte) · Romania 🇷🇴
+
+</div>
