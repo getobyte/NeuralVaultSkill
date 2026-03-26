@@ -5,6 +5,10 @@
   "bin": {
     "nvc-skill": "./bin/install.js"
   },
+  "files": [
+    "SKILL.md",
+    "bin/"
+  ],
   "scripts": {
     "install-skill": "node bin/install.js --global"
   },
