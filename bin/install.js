@@ -12,7 +12,7 @@ const customConfigDir = (() => {
   return idx !== -1 ? args[idx + 1] : null;
 })();
 
-const skillSource = path.join(__dirname, '..', 'SKILL.md');
+const commandsSource = path.join(__dirname, '..', 'nvc-commands');
 
 let claudeDir;
 if (customConfigDir) {
@@ -32,7 +32,12 @@ console.log('');
 try {
   if (!fs.existsSync(commandsDir)) fs.mkdirSync(commandsDir, { recursive: true });
 
-  fs.copyFileSync(skillSource, path.join(commandsDir, 'nvc-skill.md'));
+  const files = fs.readdirSync(commandsSource);
+  for (const file of files) {
+    const src = path.join(commandsSource, file);
+    const dest = path.join(commandsDir, file);
+    fs.copyFileSync(src, dest);
+  }
 
   console.log(`Skill installed to: ${commandsDir}`);
   console.log('');

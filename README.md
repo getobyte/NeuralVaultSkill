@@ -2,7 +2,7 @@
 
 > Canonical safe-mini prompt for [NeuralVaultCore](https://github.com/getobyte/NeuralVaultCore).
 
-NeuralVaultSkill is a compact system prompt for agents that use NeuralVaultCore as an MCP memory server. This repository ships one primary prompt only: `SKILL.md`.
+NeuralVaultSkill is a compact system prompt for agents that use NeuralVaultCore as an MCP memory server. Installs two slash commands into Claude Code: `/nvc:init` and `/nvc:end`.
 
 The prompt is optimized for **low-token memory workflows**, but it does not trade away operational safety. It enforces namespace discipline, concise `_state`, stable memory keys, and explicit secret redaction.
 
